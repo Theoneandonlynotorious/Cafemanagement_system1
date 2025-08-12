@@ -1,0 +1,108 @@
+{
+  "beverages": [
+    {
+      "id": "BEV001",
+      "name": "Espresso",
+      "price": 3.1399999999999864,
+      "category": "Coffee",
+      "available": true,
+      "description": "Strong black coffee",
+      "_type": "beverages",
+      "inventory": 14
+    },
+    {
+      "id": "BEV002",
+      "name": "Cappuccino",
+      "price": 10.0,
+      "category": "Coffee",
+      "available": true,
+      "description": "Coffee with steamed milk foam",
+      "_type": "beverages",
+      "inventory": 0
+    },
+    {
+      "id": "BEV003",
+      "name": "Latte",
+      "price": 4.0,
+      "category": "Coffee",
+      "available": true,
+      "description": "Coffee with steamed milk",
+      "_type": "beverages"
+    },
+    {
+      "id": "BEV004",
+      "name": "Green Tea",
+      "price": 2.0,
+      "category": "Tea",
+      "available": true,
+      "description": "Fresh green tea",
+      "_type": "beverages"
+    },
+    {
+      "id": "BEV005",
+      "name": "Fresh Orange Juice",
+      "price": 3.0,
+      "category": "Juice",
+      "available": true,
+      "description": "Freshly squeezed orange juice",
+      "_type": "beverages"
+    }
+  ],
+  "food": [
+    {
+      "id": "FOOD001",
+      "name": "Croissant",
+      "price": 2.5,
+      "category": "Pastry",
+      "available": true,
+      "description": "Buttery French pastry",
+      "_type": "food"
+    },
+    {
+      "id": "FOOD002",
+      "name": "Chocolate Muffin",
+      "price": 3.0,
+      "category": "Pastry",
+      "available": true,
+      "description": "Rich chocolate muffin",
+      "_type": "food"
+    },
+    {
+      "id": "FOOD003",
+      "name": "Caesar Salad",
+      "price": 8.5,
+      "category": "Salad",
+      "available": true,
+      "description": "Fresh romaine with caesar dressing",
+      "_type": "food"
+    },
+    {
+      "id": "FOOD004",
+      "name": "Club Sandwich",
+      "price": 9.0,
+      "category": "Sandwich",
+      "available": true,
+      "description": "Triple layer sandwich with turkey and bacon",
+      "_type": "food"
+    },
+    {
+      "id": "FOOD005",
+      "name": "Margherita Pizza",
+      "price": 12.0,
+      "category": "Pizza",
+      "available": true,
+      "description": "Classic pizza with tomato and mozzarella",
+      "_type": "food"
+    },
+    {
+      "id": "FOOD006",
+      "name": "panneer",
+      "price": 320.0,
+      "category": "spicy",
+      "available": true,
+      "description": "",
+      "inventory": 0,
+      "_type": "food"
+    }
+  ]
+}

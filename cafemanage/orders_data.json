@@ -1,0 +1,726 @@
+[
+  {
+    "id": "ORD00001",
+    "customer_name": "manal",
+    "table_number": "1",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 2.5,
+        "quantity": 1,
+        "subtotal": 2.5
+      },
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 2.5,
+        "quantity": 2,
+        "subtotal": 5.0
+      }
+    ],
+    "subtotal": 7.5,
+    "discount": 0.6,
+    "tax": 0.6900000000000001,
+    "service_charge": 0.34500000000000003,
+    "total": 7.9350000000000005,
+    "date": "2025-08-02",
+    "time": "16:19:04",
+    "timestamp": "2025-08-02T16:19:04.291151",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00002",
+    "customer_name": "ma",
+    "table_number": "1",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 2.5,
+        "quantity": 1,
+        "subtotal": 2.5
+      }
+    ],
+    "subtotal": 2.5,
+    "discount": 0.1,
+    "tax": 0.24,
+    "service_charge": 0.12,
+    "total": 2.76,
+    "date": "2025-08-02",
+    "time": "18:21:53",
+    "timestamp": "2025-08-02T18:21:53.299562",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00003",
+    "customer_name": "manal",
+    "table_number": "",
+    "items": [
+      {
+        "id": "BEV002",
+        "name": "Cappuccino",
+        "price": 10.0,
+        "quantity": 2,
+        "subtotal": 20.0
+      }
+    ],
+    "subtotal": 20.0,
+    "discount": 0.30000000000000004,
+    "tax": 1.97,
+    "service_charge": 0.985,
+    "total": 22.654999999999998,
+    "date": "2025-08-02",
+    "time": "18:29:24",
+    "timestamp": "2025-08-02T18:29:24.049885",
+    "status": "Pending",
+    "payment_status": "Unpaid"
+  },
+  {
+    "id": "ORD00004",
+    "customer_name": "manal",
+    "table_number": "1",
+    "items": [
+      {
+        "id": "FOOD006",
+        "name": "panneer",
+        "price": 320.0,
+        "quantity": 1,
+        "subtotal": 320.0
+      }
+    ],
+    "subtotal": 320.0,
+    "discount": 0.0,
+    "tax": 32.0,
+    "service_charge": 16.0,
+    "total": 368.0,
+    "date": "2025-08-03",
+    "time": "13:29:31",
+    "timestamp": "2025-08-03T13:29:31.351556",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00005",
+    "customer_name": "manal",
+    "table_number": "1",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 2.5,
+        "quantity": 1,
+        "subtotal": 2.5
+      },
+      {
+        "id": "FOOD006",
+        "name": "panneer",
+        "price": 320.0,
+        "quantity": 1,
+        "subtotal": 320.0
+      }
+    ],
+    "subtotal": 322.5,
+    "discount": 0.0,
+    "tax": 32.25,
+    "service_charge": 16.125,
+    "total": 370.875,
+    "date": "2025-08-03",
+    "time": "13:39:06",
+    "timestamp": "2025-08-03T13:39:06.983593",
+    "status": "Pending",
+    "payment_status": "Unpaid"
+  },
+  {
+    "id": "ORD00006",
+    "customer_name": "manal",
+    "table_number": "1",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 2.5,
+        "quantity": 1,
+        "subtotal": 2.5
+      },
+      {
+        "id": "FOOD006",
+        "name": "panneer",
+        "price": 320.0,
+        "quantity": 1,
+        "subtotal": 320.0
+      }
+    ],
+    "subtotal": 322.5,
+    "discount": 0.0,
+    "tax": 32.25,
+    "service_charge": 16.125,
+    "total": 370.875,
+    "date": "2025-08-03",
+    "time": "13:59:11",
+    "timestamp": "2025-08-03T13:59:11.953623",
+    "status": "Completed",
+    "payment_status": "Unpaid"
+  },
+  {
+    "id": "ORD00007",
+    "customer_name": "manal",
+    "table_number": "2",
+    "items": [
+      {
+        "id": "FOOD006",
+        "name": "panneer",
+        "price": 320.0,
+        "quantity": 1,
+        "subtotal": 320.0
+      }
+    ],
+    "subtotal": 320.0,
+    "discount": 0.0,
+    "tax": 32.0,
+    "service_charge": 16.0,
+    "total": 368.0,
+    "date": "2025-08-03",
+    "time": "14:04:27",
+    "timestamp": "2025-08-03T14:04:27.220865",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00008",
+    "customer_name": "manal",
+    "table_number": "3",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 2.51,
+        "quantity": 1,
+        "subtotal": 2.51
+      }
+    ],
+    "subtotal": 2.51,
+    "discount": 0.0,
+    "tax": 0.251,
+    "service_charge": 0.1255,
+    "total": 2.8865,
+    "date": "2025-08-03",
+    "time": "14:14:10",
+    "timestamp": "2025-08-03T14:14:10.225067",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00009",
+    "customer_name": "manal",
+    "table_number": "1",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 2.51,
+        "quantity": 1,
+        "subtotal": 2.51
+      }
+    ],
+    "subtotal": 2.51,
+    "discount": 0.0,
+    "tax": 0.251,
+    "service_charge": 0.1255,
+    "total": 2.8865,
+    "date": "2025-08-03",
+    "time": "14:22:30",
+    "timestamp": "2025-08-03T14:22:30.607186",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00010",
+    "customer_name": "manal",
+    "table_number": "1",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 2.51,
+        "quantity": 1,
+        "subtotal": 2.51
+      }
+    ],
+    "subtotal": 2.51,
+    "discount": 0.0,
+    "tax": 0.251,
+    "service_charge": 0.1255,
+    "total": 2.8865,
+    "date": "2025-08-03",
+    "time": "14:27:04",
+    "timestamp": "2025-08-03T14:27:04.716006",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00011",
+    "customer_name": "manal",
+    "table_number": "1",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 2.51,
+        "quantity": 1,
+        "subtotal": 2.51
+      }
+    ],
+    "subtotal": 2.51,
+    "discount": 0.0,
+    "tax": 0.251,
+    "service_charge": 0.1255,
+    "total": 2.8865,
+    "date": "2025-08-03",
+    "time": "14:45:32",
+    "timestamp": "2025-08-03T14:45:32.238523",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00012",
+    "customer_name": "mrunal",
+    "table_number": "3",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 2.51,
+        "quantity": 1,
+        "subtotal": 2.51
+      }
+    ],
+    "subtotal": 2.51,
+    "discount": 0.0,
+    "tax": 0.251,
+    "service_charge": 0.1255,
+    "total": 2.8865,
+    "date": "2025-08-03",
+    "time": "14:52:44",
+    "timestamp": "2025-08-03T14:52:44.801770",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00013",
+    "customer_name": "mrunal",
+    "table_number": "3",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 2.51,
+        "quantity": 1,
+        "subtotal": 2.51
+      }
+    ],
+    "subtotal": 2.51,
+    "discount": 0.0,
+    "tax": 0.251,
+    "service_charge": 0.1255,
+    "total": 2.8865,
+    "date": "2025-08-03",
+    "time": "14:55:31",
+    "timestamp": "2025-08-03T14:55:31.305782",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00014",
+    "customer_name": "mrunal",
+    "table_number": "3",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 2.51,
+        "quantity": 1,
+        "subtotal": 2.51
+      }
+    ],
+    "subtotal": 2.51,
+    "discount": 0.0,
+    "tax": 0.251,
+    "service_charge": 0.1255,
+    "total": 2.8865,
+    "date": "2025-08-03",
+    "time": "14:59:39",
+    "timestamp": "2025-08-03T14:59:39.203516",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00015",
+    "customer_name": "mrunal",
+    "table_number": "3",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 3.1399999999999864,
+        "quantity": 3,
+        "subtotal": 9.42
+      }
+    ],
+    "subtotal": 9.42,
+    "discount": 0.0,
+    "tax": 0.9420000000000001,
+    "service_charge": 0.47100000000000003,
+    "total": 10.833,
+    "date": "2025-08-03",
+    "time": "15:06:02",
+    "timestamp": "2025-08-03T15:06:02.435148",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00016",
+    "customer_name": "mrunal",
+    "table_number": "3",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 3.1399999999999864,
+        "quantity": 3,
+        "subtotal": 9.42
+      }
+    ],
+    "subtotal": 9.42,
+    "discount": 0.0,
+    "tax": 0.9420000000000001,
+    "service_charge": 0.47100000000000003,
+    "total": 10.833,
+    "date": "2025-08-03",
+    "time": "15:16:16",
+    "timestamp": "2025-08-03T15:16:16.885969",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00017",
+    "customer_name": "mrunal",
+    "table_number": "3",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 3.1399999999999864,
+        "quantity": 1,
+        "subtotal": 3.14
+      }
+    ],
+    "subtotal": 3.14,
+    "discount": 0.0,
+    "tax": 0.31400000000000006,
+    "service_charge": 0.15700000000000003,
+    "total": 3.611,
+    "date": "2025-08-03",
+    "time": "15:19:17",
+    "timestamp": "2025-08-03T15:19:17.440114",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00018",
+    "customer_name": "manal",
+    "table_number": "3",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 3.1399999999999864,
+        "quantity": 1,
+        "subtotal": 3.14
+      }
+    ],
+    "subtotal": 3.14,
+    "discount": 0.0,
+    "tax": 0.31400000000000006,
+    "service_charge": 0.15700000000000003,
+    "total": 3.611,
+    "date": "2025-08-03",
+    "time": "15:24:06",
+    "timestamp": "2025-08-03T15:24:06.316305",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00019",
+    "customer_name": "manal",
+    "table_number": "3",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 3.1399999999999864,
+        "quantity": 1,
+        "subtotal": 3.14
+      }
+    ],
+    "subtotal": 3.14,
+    "discount": 0.0,
+    "tax": 0.31400000000000006,
+    "service_charge": 0.15700000000000003,
+    "total": 3.611,
+    "date": "2025-08-03",
+    "time": "15:28:02",
+    "timestamp": "2025-08-03T15:28:02.623698",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00020",
+    "customer_name": "manal",
+    "table_number": "3",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 3.1399999999999864,
+        "quantity": 1,
+        "subtotal": 3.14
+      }
+    ],
+    "subtotal": 3.14,
+    "discount": 0.0,
+    "tax": 0.31400000000000006,
+    "service_charge": 0.15700000000000003,
+    "total": 3.611,
+    "date": "2025-08-03",
+    "time": "15:31:01",
+    "timestamp": "2025-08-03T15:31:01.190434",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00021",
+    "customer_name": "manal",
+    "table_number": "2",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 3.1399999999999864,
+        "quantity": 1,
+        "subtotal": 3.14
+      }
+    ],
+    "subtotal": 3.14,
+    "discount": 0.0,
+    "tax": 0.31400000000000006,
+    "service_charge": 0.15700000000000003,
+    "total": 3.611,
+    "date": "2025-08-03",
+    "time": "15:38:02",
+    "timestamp": "2025-08-03T15:38:02.790348",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00022",
+    "customer_name": "manal",
+    "table_number": "3",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 3.1399999999999864,
+        "quantity": 1,
+        "subtotal": 3.14
+      }
+    ],
+    "subtotal": 3.14,
+    "discount": 0.0,
+    "tax": 0.31400000000000006,
+    "service_charge": 0.15700000000000003,
+    "total": 3.611,
+    "date": "2025-08-03",
+    "time": "15:43:29",
+    "timestamp": "2025-08-03T15:43:29.288790",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00023",
+    "customer_name": "manal",
+    "table_number": "3",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 3.1399999999999864,
+        "quantity": 1,
+        "subtotal": 3.14
+      }
+    ],
+    "subtotal": 3.14,
+    "discount": 0.0,
+    "tax": 0.31400000000000006,
+    "service_charge": 0.15700000000000003,
+    "total": 3.611,
+    "date": "2025-08-03",
+    "time": "15:47:17",
+    "timestamp": "2025-08-03T15:47:17.095706",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00024",
+    "customer_name": "manal",
+    "table_number": "3",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 3.1399999999999864,
+        "quantity": 1,
+        "subtotal": 3.14
+      }
+    ],
+    "subtotal": 3.14,
+    "discount": 0.0,
+    "tax": 0.31400000000000006,
+    "service_charge": 0.15700000000000003,
+    "total": 3.611,
+    "date": "2025-08-03",
+    "time": "15:50:22",
+    "timestamp": "2025-08-03T15:50:22.729467",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00025",
+    "customer_name": "sakvan",
+    "table_number": "2",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 3.1399999999999864,
+        "quantity": 2,
+        "subtotal": 6.28
+      }
+    ],
+    "subtotal": 6.28,
+    "discount": 0.0,
+    "tax": 0.6280000000000001,
+    "service_charge": 0.31400000000000006,
+    "total": 7.222,
+    "date": "2025-08-03",
+    "time": "16:01:56",
+    "timestamp": "2025-08-03T16:01:56.368815",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00026",
+    "customer_name": "sakvan",
+    "table_number": "2",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 3.1399999999999864,
+        "quantity": 1,
+        "subtotal": 3.14
+      }
+    ],
+    "subtotal": 3.14,
+    "discount": 0.0,
+    "tax": 0.31400000000000006,
+    "service_charge": 0.15700000000000003,
+    "total": 3.611,
+    "date": "2025-08-03",
+    "time": "16:05:19",
+    "timestamp": "2025-08-03T16:05:19.275627",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00027",
+    "customer_name": "sakvan",
+    "table_number": "2",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 3.1399999999999864,
+        "quantity": 1,
+        "subtotal": 3.14
+      }
+    ],
+    "subtotal": 3.14,
+    "discount": 0.0,
+    "tax": 0.31400000000000006,
+    "service_charge": 0.15700000000000003,
+    "total": 3.611,
+    "date": "2025-08-03",
+    "time": "16:07:12",
+    "timestamp": "2025-08-03T16:07:12.963434",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00028",
+    "customer_name": "sakvan",
+    "table_number": "6",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 3.1399999999999864,
+        "quantity": 1,
+        "subtotal": 3.14
+      }
+    ],
+    "subtotal": 3.14,
+    "discount": 0.0,
+    "tax": 0.31400000000000006,
+    "service_charge": 0.15700000000000003,
+    "total": 3.611,
+    "date": "2025-08-03",
+    "time": "16:50:53",
+    "timestamp": "2025-08-03T16:50:53.541118",
+    "status": "Pending",
+    "payment_status": "Paid"
+  },
+  {
+    "id": "ORD00029",
+    "customer_name": "manal",
+    "table_number": "2",
+    "items": [
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 3.1399999999999864,
+        "quantity": 2,
+        "subtotal": 6.28
+      },
+      {
+        "id": "BEV001",
+        "name": "Espresso",
+        "price": 3.1399999999999864,
+        "quantity": 2,
+        "subtotal": 6.28
+      }
+    ],
+    "subtotal": 12.56,
+    "discount": 0.0,
+    "tax": 1.2560000000000002,
+    "service_charge": 0.6280000000000001,
+    "total": 14.444,
+    "date": "2025-08-03",
+    "time": "18:24:29",
+    "timestamp": "2025-08-03T18:24:29.322667",
+    "status": "Pending",
+    "payment_status": "Paid"
+  }
+]

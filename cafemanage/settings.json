@@ -1,0 +1,6 @@
+{
+  "cafe_name": "My Cafe",
+  "barcode_url": "https://mycafe.com/menu",
+  "tax_rate": 0.1,
+  "service_charge": 0.05
+}
