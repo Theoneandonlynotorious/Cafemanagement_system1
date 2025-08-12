@@ -234,16 +234,71 @@ def order_management_page():
             st.info("No items in cart yet.")
 
     with tab2:
-        orders = load_json(ORDERS_FILE) or []
-        if not orders:
-            st.info("No orders found")
-            return
-        status_filter = st.selectbox("Filter by Status", ["All", "Pending", "Preparing", "Ready", "Completed", "Cancelled"])
-        if status_filter != "All":
-            orders = [o for o in orders if o["status"] == status_filter]
-        for order in orders:
-            with st.expander(f"{order['id']} - {order['customer_name']}"):
-                st.write(order)
+    st.subheader("Order History")
+    orders = load_json(ORDERS_FILE) or []
+    if not orders:
+        st.info("No orders found")
+        return
+
+    status_filter = st.selectbox("Filter by Status", ["All", "Pending", "Preparing", "Ready", "Completed", "Cancelled"])
+    date_filter = st.date_input("Filter by Date", None)
+
+    filt = orders
+    if status_filter != "All":
+        filt = [o for o in filt if o.get("status") == status_filter]
+    if date_filter:
+        filt = [o for o in filt if o.get("date") == str(date_filter)]
+    filt = sorted(filt, key=lambda x: x["timestamp"], reverse=True)
+
+    tables = load_json(TABLES_FILE) or []
+
+    for order in filt:
+        with st.expander(f"{order['id']} by {order['customer_name']} — ₹{order['total']:.2f} ({order.get('status')})"):
+            st.write(f"Date: {order['date']} {order['time']} | Table: {order.get('table_number', '-')}")
+            for it in order["items"]:
+                st.write(f"- {it['name']} x{it['quantity']} = ₹{it['subtotal']:.2f}")
+            st.write(f"Subtotal: ₹{order['subtotal']:.2f}")
+            st.write(f"Tax: ₹{order.get('tax', 0):.2f}")
+            st.write(f"Service Charge: ₹{order.get('service_charge', 0):.2f}")
+            st.write(f"**Total: ₹{order['total']:.2f}**")
+            st.write(f"Payment: {order.get('payment_status', 'Unpaid')}")
+
+            # Dropdown to update status
+            new_status = st.selectbox(
+                "Update Status",
+                ["Pending", "Preparing", "Ready", "Completed", "Cancelled"],
+                index=["Pending", "Preparing", "Ready", "Completed", "Cancelled"].index(order.get("status", "Pending")),
+                key=f"status_{order['id']}"
+            )
+
+            col1, col2 = st.columns(2)
+
+            with col1:
+                if st.button("Update Status", key=f"upd_{order['id']}"):
+                    for o in orders:
+                        if o["id"] == order["id"]:
+                            o["status"] = new_status
+                            save_json(ORDERS_FILE, orders)
+                            st.success("Status updated")
+                            st.rerun()
+
+            with col2:
+                if st.button("✅ Order Completed", key=f"done_{order['id']}"):
+                    # Mark the order as completed
+                    for o in orders:
+                        if o["id"] == order["id"]:
+                            o["status"] = "Completed"
+                    save_json(ORDERS_FILE, orders)
+
+                    # Free up the table
+                    if order.get("table_number"):
+                        for t in tables:
+                            if t["table_number"] == order["table_number"]:
+                                t["status"] = "Available"
+                    save_json(TABLES_FILE, tables)
+
+                    st.success(f"Order {order['id']} marked as Completed and table {order.get('table_number', '-')} is now free.")
+                    st.rerun()
 
 # Table management, sales analytics, settings pages would be same as your version unchanged
 # For brevity, not pasting unchanged functions
@@ -271,3 +326,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
