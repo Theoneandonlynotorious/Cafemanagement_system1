@@ -375,7 +375,7 @@ def order_management_page():
                             }
                             st.session_state.cart.append(cart_item)
                             st.success(f"Added {qty}x {item['name']} to cart!")
-                            st.experimental_rerun()
+                            st.rerun()
 
         st.subheader("Shopping Cart")
         if st.session_state.cart:
@@ -473,7 +473,7 @@ def order_management_page():
                     # === END PDF & EMAIL BLOCK ===
 
                     st.session_state.cart = []
-                    st.experimental_rerun()
+                    st.rerun()
         else:
             st.info("Add items to the cart from above menu.")
 
@@ -676,6 +676,7 @@ if __name__ == "__main__":
     if 'cart' not in st.session_state:
         st.session_state['cart'] = []
     main()
+
 
 
 
