@@ -4,6 +4,7 @@ import os
 from datetime import datetime, date
 import io
 from bill_mail import build_pdf, send_email 
+from streamlit_autorefresh import st_autorefresh
 # --- File paths ---
 MENU_FILE = "menu_data.json"
 ORDERS_FILE = "orders_data.json"
@@ -634,6 +635,7 @@ if __name__ == "__main__":
     if 'cart' not in st.session_state:
         st.session_state['cart'] = []
     main()
+
 
 
 
