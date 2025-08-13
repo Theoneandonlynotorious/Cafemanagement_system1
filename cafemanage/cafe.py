@@ -361,19 +361,24 @@ def order_management_page():
                     })
                     st.success(f"Added {qty}x {item['name']} to cart!")
                     st.rerun()
+
     st.subheader("Shopping Cart")
     if st.session_state.cart:
         total = sum(i["subtotal"] for i in st.session_state.cart)
         tax_rate = settings.get("tax_rate", 0.10)
         service_charge = settings.get("service_charge", 0.05)
-        tax_amt   = total * tax_rate
-        svc_amt   = total * service_charge
+        tax_amt = total * tax_rate
+        svc_amt = total * service_charge
         final_total = total + tax_amt + svc_amt
         st.write(f"Subtotal: ₹{total:.2f}")
         st.write(f"Tax ({tax_rate*100:.0f}%): +₹{tax_amt:.2f}")
         st.write(f"Service Charge ({service_charge*100:.0f}%): +₹{svc_amt:.2f}")
         st.write(f"**Total: ₹{final_total:.2f}**")
         payment_status = st.selectbox("Payment Status", ["Unpaid", "Paid", "Partial"])
+
+        if "order_placed" not in st.session_state:
+            st.session_state.order_placed = False
+
         if st.button("Place Order"):
             if not customer_name:
                 st.error("Enter customer name")
@@ -390,6 +395,7 @@ def order_management_page():
                                     return
                                 it["inventory"] -= ci["quantity"]
                 save_json(MENU_FILE, menu_data)
+
                 new_order = {
                     "id": f"ORD{len(orders_data)+1:05d}",
                     "customer_name": customer_name,
@@ -408,12 +414,14 @@ def order_management_page():
                 }
                 orders_data.append(new_order)
                 save_json(ORDERS_FILE, orders_data)
+
                 # ✅ Generate PDF bill
                 try:
                     pdf_bytes = build_pdf(new_order)
                 except Exception as e:
                     st.error(f"Error generating PDF: {e}")
                     pdf_bytes = None
+
                 # ✅ Send email if email provided
                 if customer_email and pdf_bytes:
                     try:
@@ -421,7 +429,8 @@ def order_management_page():
                         st.success(f"Bill sent to {customer_email}")
                     except Exception as e:
                         st.error(f"Email send failed: {e}")
-                # ✅ Show download button
+
+                # ✅ Show PDF download button
                 if pdf_bytes:
                     st.download_button(
                         "📄 Download Bill PDF",
@@ -430,10 +439,20 @@ def order_management_page():
                         mime="application/pdf"
                     )
 
-                # ✅ Show simple success message
+                # ✅ Show success message
                 st.success(f"Order placed successfully! ID: {new_order['id']}")
 
+                # ✅ Set flag for auto-refresh after 5 seconds
+                st.session_state.order_placed = True
+
+                # Reset cart (but refresh will clear everything)
                 st.session_state.cart = []
+
+        # 🔄 Trigger refresh ONLY if order just placed
+        if st.session_state.order_placed:
+            st_autorefresh(interval=5000, limit=1, key="order_refresh")
+            st.session_state.order_placed = False
+
     else:
         st.info("Add items to the cart from above menu.")
 
@@ -635,6 +654,7 @@ if __name__ == "__main__":
     if 'cart' not in st.session_state:
         st.session_state['cart'] = []
     main()
+
 
 
 
