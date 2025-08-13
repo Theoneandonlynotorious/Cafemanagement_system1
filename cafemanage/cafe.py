@@ -2,7 +2,7 @@ import streamlit as st
 import json
 import os
 from datetime import datetime, date
-import qrcode
+import time
 import io
 from bill_mail import build_pdf, send_email 
 # --- File paths ---
@@ -670,6 +670,7 @@ if __name__ == "__main__":
     if 'cart' not in st.session_state:
         st.session_state['cart'] = []
     main()
+
 
 
 
