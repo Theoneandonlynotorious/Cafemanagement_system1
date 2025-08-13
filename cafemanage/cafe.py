@@ -2,7 +2,6 @@ import streamlit as st
 import json
 import os
 from datetime import datetime, date
-import time
 import io
 from bill_mail import build_pdf, send_email 
 # --- File paths ---
@@ -396,7 +395,7 @@ def order_management_page():
                     "table_number": table_number,
                     "items": st.session_state.cart.copy(),
                     "subtotal": total,
-                    # "discount": 0.0,  # Ensure key exists
+                    # "discount": 0.0,
                     "tax": tax_amt,
                     "service_charge": svc_amt,
                     "total": final_total,
@@ -430,47 +429,12 @@ def order_management_page():
                         mime="application/pdf"
                     )
 
-                # 🎯 Custom circular popup for 2s
-                custom_popup = """
-                    <style>
-                    #order-popup {
-                        position: fixed;
-                        top: 0; left: 0;
-                        width: 100vw; height: 100vh;
-                        background: rgba(0,0,0,0.3);
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        z-index: 1000;
-                    }
-                    #order-popup .circle {
-                        width: 200px; height: 200px;
-                        border-radius: 50%;
-                        background: #16c768;
-                        display: flex; flex-direction: column;
-                        align-items: center; justify-content: center;
-                        color: white; font-size: 1.2rem; font-weight: bold;
-                        box-shadow: 0 4px 24px rgba(0,0,0,0.15);
-                    }
-                    </style>
-                    <div id="order-popup">
-                        <div class="circle">
-                            Order placed successfully!
-                        </div>
-                    </div>
-                    <script>
-                    setTimeout(() => {
-                        document.getElementById('order-popup').remove();
-                    }, 2000);
-                    </script>
-                """
-                st.markdown(custom_popup, unsafe_allow_html=True)
+                # ✅ Show simple success message
+                st.success(f"Order placed successfully! ID: {new_order['id']}")
 
-                st.success(f"Order placed! ID: {new_order['id']}")
                 st.session_state.cart = []
     else:
         st.info("Add items to the cart from above menu.")
-            
 
     with tab2:
         # --- No changes in Order History tab ---
@@ -670,6 +634,7 @@ if __name__ == "__main__":
     if 'cart' not in st.session_state:
         st.session_state['cart'] = []
     main()
+
 
 
 
