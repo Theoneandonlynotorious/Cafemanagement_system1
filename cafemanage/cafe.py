@@ -405,7 +405,7 @@ def order_management_page():
                         "table_number": table_number,
                         "items": st.session_state.cart.copy(),
                         "subtotal": total,
-                        "discount": 0.0,  # Ensure key exists
+                        #"discount": 0.0,  # Ensure key exists
                         "tax": tax_amt,
                         "service_charge": svc_amt,
                         "total": final_total,
@@ -434,6 +434,7 @@ def order_management_page():
                             st.error(f"Email send failed: {e}")
 
                     # ✅ Show download button
+                    
                     if pdf_bytes:
                         st.download_button(
                             "📄 Download Bill PDF",
@@ -441,11 +442,46 @@ def order_management_page():
                             file_name=f"{new_order['id']}.pdf",
                             mime="application/pdf"
                         )
-
-                    st.balloons()
+                    
+                    # 🎯 Added custom popup instead
+                    custom_popup = """
+                        <style>
+                        #order-popup {
+                            position: fixed;
+                            top: 0; left: 0;
+                            width: 100vw; height: 100vh;
+                            background: rgba(0,0,0,0.3);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            z-index: 1000;
+                        }
+                        #order-popup .circle {
+                            width: 200px; height: 200px;
+                            border-radius: 50%;
+                            background: #16c768;
+                            display: flex; flex-direction: column;
+                            align-items: center; justify-content: center;
+                            color: white; font-size: 1.2rem; font-weight: bold;
+                            box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+                        }
+                        </style>
+                        <div id="order-popup">
+                            <div class="circle">
+                                Order placed successfully!
+                            </div>
+                        </div>
+                        <script>
+                        setTimeout(() => {
+                            document.getElementById('order-popup').remove();
+                        }, 1800);
+                        </script>
+                    """
+                    st.markdown(custom_popup, unsafe_allow_html=True)
+                    
                     st.success(f"Order placed! ID: {new_order['id']}")
                     st.session_state.cart = []
-        else:
+        else:        
             st.info("Add items to the cart from above menu.")
 
     with tab2:
@@ -646,6 +682,7 @@ if __name__ == "__main__":
     if 'cart' not in st.session_state:
         st.session_state['cart'] = []
     main()
+
 
 
 
