@@ -178,7 +178,7 @@ def order_management_page():
     settings = load_json(SETTINGS_FILE) or {}
 
     # Live refresh every 3 seconds for the table grid
-    st_autorefresh(interval=3000, limit=None, key="order_refresh")
+    st_autorefresh(interval=10000, limit=None, key="order_refresh")
 
     tab1, tab2 = st.tabs(["New Order", "Order History"])
 
@@ -378,4 +378,5 @@ if __name__ == "__main__":
     if 'cart' not in st.session_state:
         st.session_state['cart'] = []
     main()
+
 
