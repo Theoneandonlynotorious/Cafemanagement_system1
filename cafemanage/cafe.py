@@ -2,9 +2,9 @@ import streamlit as st
 import json
 import os
 from datetime import datetime, date
+import qrcode
 import io
-from bill_mail import build_pdf, send_email 
-from streamlit_autorefresh import st_autorefresh
+
 # --- File paths ---
 MENU_FILE = "menu_data.json"
 ORDERS_FILE = "orders_data.json"
@@ -270,30 +270,29 @@ def menu_management_page():
                     st.success("Item deleted.")
                     st.rerun() 
                     
+# ---------- FULL REPLACEMENT: table_management_page() ----------
 def table_management_page():
-    """
-    Automatically sync table status with orders:
-    – If there is at least one active order (Pending/Preparing/Ready) for a table
-      → mark the table Occupied.
-    – If no active order for that table
-      → mark it Available.
-    Manual override is still possible via the select-boxes.
-    """
-    st.header("🪑 Table Management")
+    st.header("🪑 Live Table Status")
 
-    # --- load data ---
-    tables = load_json(TABLES_FILE) or []
-    orders = load_json(ORDERS_FILE) or []
-
-    # --- helper to find active orders for a table -----------------
     def is_table_busy(tn: str) -> bool:
-        """Return True if table has any non-finished order."""
+        orders = load_json(ORDERS_FILE) or []
         return any(
             o.get("table_number") == tn
             and o.get("status") in {"Pending", "Preparing", "Ready"}
             for o in orders
         )
 
+    # refresh status
+    tables = [{"table_number": str(i),
+               "status": "Busy" if is_table_busy(str(i)) else "Available"}
+              for i in range(1, 11)]
+    save_json(TABLES_FILE, tables)
+
+    # display
+    for t in tables:
+        col1, col2 = st.columns(2)
+        col1.write(t["table_number"])
+        col2.write(t["status"])
     # --- auto-update statuses -------------------------------------
     changed = False
     for t in tables:
@@ -334,93 +333,131 @@ def order_management_page():
 
     with tab1:
         st.subheader("Create New Order")
-    col_left, col_mid, col_right = st.columns(3)
-    with col_left:
-        customer_name = st.text_input("Customer Name")
-    with col_mid:
-        table_number = st.text_input("Table Number (Optional)")
-    with col_right:
-        customer_email = st.text_input("Customer e-mail (for bill)")
-    st.write("### Menu Items")
-    all_items = [it for cat in menu_data.values() for it in cat if it.get("available", True)]
-    for cat in sorted({it["category"] for it in all_items}):
-        st.write(f"**{cat}**")
-        for item in [i for i in all_items if i["category"] == cat]:
-            c1, c2, c3, c4 = st.columns([3, 1, 1, 1])
-            c1.write(f"{item['name']} — {item.get('description', '')}")
-            c2.write(f"₹{item['price']:.2f}")
-            qty = c3.number_input(f"Qty {item['id']}", 0, 100, key=f"qty_{item['id']}")
-            if c4.button("Add", key=f"add_{item['id']}") and qty > 0:
-                if qty > item.get("inventory", 0):
-                    st.error(f"Only {item['inventory']} left of {item['name']}")
+
+        col_left, col_mid, col_right = st.columns(3)
+        with col_left:
+            customer_name = st.text_input("Customer Name")
+        with col_right:
+            customer_email = st.text_input("Customer e-mail (for bill)")
+
+        # ---------- LIVE TABLE CHECK ----------
+        busy = {o.get("table_number") for o in orders_data
+                if o.get("table_number") and o.get("status") in {"Pending", "Preparing", "Ready"}}
+        free = [str(i) for i in range(1, 11) if str(i) not in busy]
+
+        if free:
+            table_number = col_mid.selectbox("Table Number", ["No table"] + free)
+            if table_number != "No table" and table_number in busy:
+                st.error(f"⚠ Table {table_number} is currently busy.")
+                table_number = "No table"
+        else:
+            st.warning("⚠ All tables are occupied.")
+            table_number = "No table"
+        # --------------------------------------
+
+        st.write("### Menu Items")
+        all_items = [it for cat in menu_data.values() for it in cat if it.get("available", True)]
+
+        for cat in sorted({it["category"] for it in all_items}):
+            st.write(f"{cat}")
+            for item in [i for i in all_items if i["category"] == cat]:
+                c1, c2, c3, c4 = st.columns([3, 1, 1, 1])
+                c1.write(f"{item['name']} — {item.get('description', '')}")
+                c2.write(f"₹{item['price']:.2f}")
+                qty = c3.number_input(f"Qty {item['id']}", 0, 100, key=f"qty_{item['id']}")
+                if c4.button("Add", key=f"add_{item['id']}") and qty > 0:
+                    if qty > item.get("inventory", 0):
+                        st.error(f"Only {item['inventory']} left of {item['name']}")
+                    else:
+                        st.session_state.cart.append({
+                            "id": item["id"], "name": item["name"],
+                            "price": item["price"], "quantity": qty,
+                            "subtotal": round(item["price"] * qty, 2)
+                        })
+                        st.success(f"Added {qty}x {item['name']} to cart!")
+                        st.rerun()
+
+        st.subheader("Shopping Cart")
+        if st.session_state.cart:
+            total = sum(i["subtotal"] for i in st.session_state.cart)
+            tax_rate = settings.get("tax_rate", 0.10)
+            service_charge = settings.get("service_charge", 0.05)
+
+            tax_amt   = total * tax_rate
+            svc_amt   = total * service_charge
+            final_total = total + tax_amt + svc_amt
+
+            st.write(f"Subtotal: ₹{total:.2f}")
+            st.write(f"Tax ({tax_rate*100:.0f}%): +₹{tax_amt:.2f}")
+            st.write(f"Service Charge ({service_charge*100:.0f}%): +₹{svc_amt:.2f}")
+            st.write(f"*Total: ₹{final_total:.2f}*")
+
+            payment_status = st.selectbox("Payment Status", ["Unpaid", "Paid", "Partial"])
+
+            if st.button("Place Order"):
+                if not customer_name:
+                    st.error("Enter customer name")
+                elif not st.session_state.cart:
+                    st.error("Cart is empty")
                 else:
-                    st.session_state.cart.append({
-                        "id": item["id"], "name": item["name"],
-                        "price": item["price"], "quantity": qty,
-                        "subtotal": round(item["price"] * qty, 2)
-                    })
-                    st.success(f"Added {qty}x {item['name']} to cart!")
+                    # inventory update
+                    for ci in st.session_state.cart:
+                        for cat in menu_data:
+                            for it in menu_data[cat]:
+                                if it["id"] == ci["id"]:
+                                    if ci["quantity"] > it.get("inventory", 0):
+                                        st.error(f"Not enough inventory for {it['name']}")
+                                        return
+                                    it["inventory"] -= ci["quantity"]
+                    save_json(MENU_FILE, menu_data)
+
+                    new_order = {
+                        "id": f"ORD{len(orders_data)+1:05d}",
+                        "customer_name": customer_name,
+                        "table_number": table_number if table_number != "No table" else "",
+                        "items": st.session_state.cart.copy(),
+                        "subtotal": total,
+                        "tax": tax_amt,
+                        "service_charge": svc_amt,
+                        "total": final_total,
+                        "date": str(date.today()),
+                        "time": datetime.now().strftime("%H:%M:%S"),
+                        "timestamp": datetime.now().isoformat(),
+                        "status": "Pending",
+                        "payment_status": payment_status
+                    }
+                    orders_data.append(new_order)
+                    save_json(ORDERS_FILE, orders_data)
+                    # ✅ Generate PDF bill
+                    try:
+                        pdf_bytes = build_pdf(new_order)
+                    except Exception as e:
+                        st.error(f"Error generating PDF: {e}")
+                        pdf_bytes = None
+                    # ✅ Send email if email provided
+                    if customer_email and pdf_bytes:
+                        try:
+                            send_email(customer_email, new_order, pdf_bytes)
+                            st.success(f"Bill sent to {customer_email}")
+                        except Exception as e:
+                            st.error(f"Email send failed: {e}")
+                    # ✅ Show download button
+                    if pdf_bytes:
+                        st.download_button(
+                            "📄 Download Bill PDF",
+                            pdf_bytes,
+                            file_name=f"{new_order['id']}.pdf",
+                            mime="application/pdf"
+                        )
+                
+                    st.balloons()
+                    st.success(f"Order placed! ID: {new_order['id']}")
+                    st.session_state.cart = []
                     st.rerun()
-
-    st.subheader("Shopping Cart")
-    if st.session_state.cart:
-        total = sum(i["subtotal"] for i in st.session_state.cart)
-        tax_rate = settings.get("tax_rate", 0.10)
-        service_charge = settings.get("service_charge", 0.05)
-        tax_amt   = total * tax_rate
-        svc_amt   = total * service_charge
-        final_total = total + tax_amt + svc_amt
-        st.write(f"Subtotal: ₹{total:.2f}")
-        st.write(f"Tax ({tax_rate*100:.0f}%): +₹{tax_amt:.2f}")
-        st.write(f"Service Charge ({service_charge*100:.0f}%): +₹{svc_amt:.2f}")
-        st.write(f"**Total: ₹{final_total:.2f}**")
-        payment_status = st.selectbox("Payment Status", ["Unpaid", "Paid", "Partial"])
-        if st.button("Place Order"):
-            if not customer_name:
-                st.error("Enter customer name")
-            elif not st.session_state.cart:
-                st.error("Cart is empty")
-            else:
-                # inventory update
-                for ci in st.session_state.cart:
-                    for cat in menu_data:
-                        for it in menu_data[cat]:
-                            if it["id"] == ci["id"]:
-                                if ci["quantity"] > it.get("inventory", 0):
-                                    st.error(f"Not enough inventory for {it['name']}")
-                                    return
-                                it["inventory"] -= ci["quantity"]
-                save_json(MENU_FILE, menu_data)
-                new_order = {
-                    "id": f"ORD{len(orders_data)+1:05d}",
-                    "customer_name": customer_name,
-                    "table_number": table_number,
-                    "items": st.session_state.cart.copy(),
-                    "subtotal": total,
-                    "tax": tax_amt,
-                    "service_charge": svc_amt,
-                    "total": final_total,
-                    "date": str(date.today()),
-                    "time": datetime.now().strftime("%H:%M:%S"),
-                    "timestamp": datetime.now().isoformat(),
-                    "status": "Pending",
-                    "payment_status": payment_status
-                }
-                orders_data.append(new_order)
-                save_json(ORDERS_FILE, orders_data)
-
-                # ❌ Removed st.balloons()
-                st.success(f"Order placed! ID: {new_order['id']}")
-                st.info("✅ Your order has been placed successfully.")
-
-                st.session_state.cart = []
-                st.rerun()
-    else:
-        st.info("Add items to the cart from above menu.")
-
+        else:
+            st.info("Add items to the cart from above menu.")
 
     with tab2:
-        # --- No changes in Order History tab ---
         st.subheader("Order History")
         orders = load_json(ORDERS_FILE) or []
         if not orders:
@@ -445,7 +482,7 @@ def order_management_page():
                 st.write(f"Subtotal: ₹{order['subtotal']:.2f}")
                 st.write(f"Tax: ₹{order.get('tax', 0):.2f}")
                 st.write(f"Service Charge: ₹{order.get('service_charge', 0):.2f}")
-                st.write(f"**Total: ₹{order['total']:.2f}**")
+                st.write(f"*Total: ₹{order['total']:.2f}*")
                 st.write(f"Payment: {order.get('payment_status', 'Unpaid')}")
 
                 new_status = st.selectbox("Update Status", ["Pending", "Preparing", "Ready", "Completed", "Cancelled"],
@@ -613,27 +650,7 @@ def main():
         else:
             st.warning("Only admin can access settings.")
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     if 'cart' not in st.session_state:
         st.session_state['cart'] = []
     main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
