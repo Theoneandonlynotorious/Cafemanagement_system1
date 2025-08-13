@@ -465,8 +465,8 @@ def order_management_page():
             import time
             time.sleep(3)
             st.rerun()
-else:
-    st.info("Add items to the cart from above menu.")
+        else:
+            st.info("Add items to the cart from above menu.")
 
                     st.balloons()
                     st.success(f"Order placed! ID: {new_order['id']}")
@@ -672,3 +672,4 @@ if _name_ == "_main_":
     if 'cart' not in st.session_state:
         st.session_state['cart'] = []
     main()
+
