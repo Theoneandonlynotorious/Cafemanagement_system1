@@ -400,7 +400,8 @@ if st.session_state.cart:
                         if it["id"] == ci["id"]:
                             if ci["quantity"] > it.get("inventory", 0):
                                 st.error(f"Not enough inventory for {it['name']}")
-                                return
+                                import sys
+                                sys.exit()
                             it["inventory"] -= ci["quantity"]
             save_json(MENU_FILE, menu_data)
 
@@ -660,6 +661,7 @@ if __name__ == "__main__":
     if 'cart' not in st.session_state:
         st.session_state['cart'] = []
     main()
+
 
 
 
