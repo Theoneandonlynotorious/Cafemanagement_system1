@@ -140,8 +140,11 @@ def table_management_page():
     orders = load_json(ORDERS_FILE) or []
 
     # 1. Real busy tables
-    busy = {o.get("table_number") for o in orders
-            if o.get("table_number") and o.get("status") in {"Pending", "Preparing", "Ready"}}
+    busy = {
+        o.get("table_number")
+        for o in orders
+        if o.get("table_number") and o.get("status") not in {"Completed", "Cancelled"}
+    }
 
     # 2. Auto-sync
     changed = False
@@ -375,3 +378,4 @@ if __name__ == "__main__":
     if 'cart' not in st.session_state:
         st.session_state['cart'] = []
     main()
+
