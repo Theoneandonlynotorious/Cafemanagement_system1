@@ -405,7 +405,7 @@ def order_management_page():
                         "table_number": table_number,
                         "items": st.session_state.cart.copy(),
                         "subtotal": total,
-                        #"discount": 0.0,  # Ensure key exists
+                        #"discount": 0.0,  Ensure key exists
                         "tax": tax_amt,
                         "service_charge": svc_amt,
                         "total": final_total,
@@ -682,6 +682,7 @@ if __name__ == "__main__":
     if 'cart' not in st.session_state:
         st.session_state['cart'] = []
     main()
+
 
 
 
