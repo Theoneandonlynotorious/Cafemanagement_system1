@@ -10,3 +10,4 @@ reportlab>=3.6.12
 supabase
 python-dotenv
 streamlit-extras
+streamlit-autorefresh
