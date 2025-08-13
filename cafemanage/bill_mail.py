@@ -86,7 +86,7 @@ def build_pdf(order_dict: dict) -> bytes:
     c.setFont("Helvetica-Bold", 10)
     totals = [
         ("Subtotal",  order_dict["subtotal"]),
-        ("Discount", -order_dict["discount"]),
+        #("Discount", -order_dict["discount"]),
         ("Tax",       order_dict["tax"]),
         ("Service",   order_dict["service_charge"]),
         ("Total",     order_dict["total"])
@@ -135,3 +135,4 @@ def send_email(to_email: str, order_dict: dict, pdf_bytes: bytes):
         srv.starttls()
         srv.login(SMTP_USERNAME, SMTP_PASSWORD)
         srv.sendmail(FROM_EMAIL, to_email.strip(), msg.as_string())
+
