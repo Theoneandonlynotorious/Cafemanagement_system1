@@ -220,7 +220,7 @@ def menu_management_page():
                     menu_data[item_type].append(new_item)
                     save_json(MENU_FILE, menu_data)
                     st.success(f"Added {item_name} to menu!")
-                    #st.experimental_rerun()
+                    st.rerun()
                 else:
                     st.error("Please fill all fields.")
 
@@ -262,7 +262,7 @@ def menu_management_page():
                             })
                             save_json(MENU_FILE, menu_data)
                             st.success("Item updated.")
-                            st.experimental_rerun()
+                            st.rerun()
             with col2:
                 if st.form_submit_button("Delete Item"):
                     t = item["_type"]
@@ -620,7 +620,7 @@ def main():
         st.session_state['logged_in'] = False
         st.session_state['user'] = None
         st.session_state['cart'] = []
-        st.experimental_rerun()
+        st.rerun()
     elif choice == "Dashboard":
         dashboard_page()
     elif choice == "Menu Management":
@@ -643,7 +643,8 @@ def main():
         else:
             st.warning("Only admin can access settings.")
 
-if _name_ == "_main_":
+if __name__ == "_main_":
     if 'cart' not in st.session_state:
         st.session_state['cart'] = []
     main()
+
